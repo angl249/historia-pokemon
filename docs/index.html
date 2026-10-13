@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Historia Completa de Pokémon</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.7;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            color: #e0e0e0;
+            min-height: 100vh;
+        }
+
+        /* PORTADA */
+        #portada {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            background-image: url('images/portada.jpg');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            align-items: center;
+            text-align: center;
+            padding-bottom: 12vh;
+        }
+        #portada::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.3) 40%, rgba(0,0,0,0.15) 100%);
+            z-index: 1;
+        }
+        .portada-contenido { position: relative; z-index: 2; }
+        .portada-contenido h1 {
+            font-size: 3.2rem;
+            color: #fff;
+            text-shadow: 3px 3px 12px rgba(0,0,0,0.9);
+            margin-bottom: 1.2rem;
+            letter-spacing: 2px;
+        }
+        .portada-contenido h1 span { color: #ffcb05; }
+        .btn-acceder {
+            display: inline-block;
+            padding: 1rem 3rem;
+            background: #ffcb05;
+            color: #1a1a2e;
+            text-decoration: none;
+            font-size: 1.4rem;
+            font-weight: 700;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 20px rgba(255, 203, 5, 0.4);
+        }
+        .btn-acceder:hover {
+            background: #ffe066;
+            transform: translateY(-4px) scale(1.05);
+            box-shadow: 0 10px 25px rgba(255, 203, 5, 0.6);
+        }
+
+        /* RESTO */
+        header {
+            background: rgba(0, 0, 0, 0.5);
+            padding: 2.5rem 1rem;
+            text-align: center;
+            border-bottom: 3px solid #ffcb05;
+        }
+        header h1 {
+            font-size: 2.8rem;
+            color: #fff;
+            margin-bottom: 0.4rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+        header p { font-size: 1.15rem; color: #a0a0a0; }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            gap: 0.7rem;
+            padding: 1rem;
+            background: rgba(0, 0, 0, 0.35);
+            flex-wrap: wrap;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            padding: 0.45rem 1rem;
+            border: 2px solid #ffcb05;
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.25s ease;
+        }
+        nav a:hover {
+            background: #ffcb05;
+            color: #1a1a2e;
+            transform: translateY(-2px);
+        }
+
+        main {
+            max-width: 1050px;
+            margin: 0 auto;
+            padding: 2rem 1.4rem;
+        }
+        section {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            padding: 2.2rem;
+            margin-bottom: 2.5rem;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        section h2 {
+            color: #ffcb05;
+            font-size: 1.8rem;
+            margin-bottom: 1.3rem;
+            border-bottom: 2px solid #ffcb05;
+            padding-bottom: 0.5rem;
+        }
+        .content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            align-items: flex-start;
+        }
+        .text { flex: 1 1 380px; }
+        .text p { margin-bottom: 1.1rem; font-size: 1.05rem; }
+        .text ul { margin: 0.8rem 0 1.2rem 1.5rem; }
+        .text li { margin-bottom: 0.45rem; }
+
+        .images-group {
+            flex: 0 1 320px;
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+        }
+        .image-container {
+            text-align: center;
+        }
+        .image-container img {
+            max-width: 100%;
+            height: auto;
+            max-height: 280px;
+            object-fit: cover;
+            border-radius: 12px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+            border: 3px solid rgba(255, 203, 5, 0.5);
+            transition: transform 0.3s ease;
+        }
+        .image-container img:hover { transform: scale(1.03); }
+        .image-container figcaption {
+            margin-top: 0.6rem;
+            font-size: 0.88rem;
+            color: #a0a0a0;
+            font-style: italic;
+        }
+
+        .btn-go {
+            display: inline-block;
+            margin-top: 1rem;
+            padding: 0.75rem 1.7rem;
+            background: #ffcb05;
+            color: #1a1a2e;
+            text-decoration: none;
+            font-weight: 700;
+            border-radius: 30px;
+            transition: all 0.25s ease;
+        }
+        .btn-go:hover {
+            background: #ffe066;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(255,203,5,0.4);
+        }
+
+        .eventos-lista {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1rem;
+            margin-top: 1.3rem;
+        }
+        .evento {
+            background: rgba(0,0,0,0.25);
+            border: 1px solid rgba(255,203,5,0.3);
+            border-radius: 12px;
+            padding: 1.1rem 1.3rem;
+        }
+        .evento h3 {
+            color: #ffcb05;
+            font-size: 1.05rem;
+            margin-bottom: 0.4rem;
+        }
+        .evento p {
+            font-size: 0.95rem;
+            margin: 0.25rem 0;
+            color: #ccc;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            background: rgba(0,0,0,0.4);
+            color: #888;
+            font-size: 0.95rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        @media (max-width: 700px) {
+            .portada-contenido h1 { font-size: 2.2rem; }
+            .btn-acceder { font-size: 1.15rem; padding: 0.8rem 2rem; }
+            #portada { padding-bottom: 8vh; }
+            header h1 { font-size: 2rem; }
+            .content { flex-direction: column; }
+            nav a { font-size: 0.82rem; padding: 0.4rem 0.8rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- PORTADA -->
+    <section id="portada">
+        <div class="portada-contenido">
+            <h1>Historia <span>Pokémon</span></h1>
+            <a href="#contenido" class="btn-acceder">Acceder</a>
+        </div>
+    </section>
+
+    <div id="contenido">
+        <header>
+            <h1>Historia Completa de Pokémon</h1>
+            <p>Desde su creación hasta la comunidad y los eventos actuales</p>
+        </header>
+
+        <nav>
+            <a href="#creador">El Creador</a>
+            <a href="#gameboy">Game Boy</a>
+            <a href="#serie">La Serie</a>
+            <a href="#cartas">Cartas TCG</a>
+            <a href="#pokemon-go">Pokémon GO</a>
+            <a href="#comunidad">Comunidad</a>
+            <a href="#eventos">Próximos Eventos</a>
+        </nav>
+
+        <main>
+
+            <!-- 1. CREADOR (2 imágenes) -->
+            <section id="creador">
+                <h2>1. Historia del Creador – Satoshi Tajiri</h2>
+                <div class="content">
+                    <div class="text">
+                        <p>Satoshi Tajiri nació el 28 de agosto de 1965 en el barrio de Setagaya, en Tokio, Japón. Durante su infancia, en una época en la que Tokio aún conservaba zonas verdes y campos abiertos, Tajiri desarrolló una enorme pasión por recolectar insectos. Pasaba horas buscando escarabajos, mariposas y otros insectos, catalogándolos y observando su comportamiento. Esta afición infantil se convertiría años después en la inspiración central de Pokémon.</p>
+                        <p>En su adolescencia, Tajiri se interesó profundamente por los videojuegos, especialmente por los arcades. Llegó a pasar tanto tiempo en los salones recreativos que su padre se preocupó por él. Sin embargo, esa dedicación lo llevó a fundar, junto a un grupo de amigos, una revista amateur de videojuegos llamada <em>Game Freak</em> en 1981.</p>
+                        <p>En 1989, Tajiri transformó la revista en una empresa de desarrollo de videojuegos oficialmente llamada <strong>Game Freak</strong>. Junto a él estaba el artista Ken Sugimori, quien se convertiría en el diseñador principal de los Pokémon. Después de crear algunos juegos menores, Tajiri comenzó a trabajar en un proyecto ambicioso: un juego de rol donde los jugadores pudieran capturar criaturas, intercambiarlas y combatir con ellas.</p>
+                        <p>El desarrollo de lo que finalmente se conocería como Pokémon duró casi seis años y estuvo a punto de quebrar a Game Freak en varias ocasiones. Nintendo dudaba del proyecto, pero Shigeru Miyamoto (creador de Mario) vio potencial y apoyó la idea. Finalmente, en 1996, el sueño de Tajiri se hizo realidad con el lanzamiento de Pokémon Rojo y Verde.</p>
+                    </div>
+                    <div class="images-group">
+                        <figure class="image-container">
+                            <img src="images/historia1.jpg" alt="Satoshi Tajiri">
+                            <figcaption>Satoshi Tajiri, el creador de Pokémon</figcaption>
+                        </figure>
+                        <figure class="image-container">
+                            <img src="images/historia2.jpg" alt="Game Freak">
+                            <figcaption>Ken Sugimori y los inicios de Game Freak</figcaption>
+                        </figure>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 2. GAME BOY (2 imágenes) -->
+            <section id="gameboy">
+                <h2>2. Los Juegos de Game Boy (1996)</h2>
+                <div class="content">
+                    <div class="text">
+                        <p>El 27 de febrero de 1996 se lanzaron en Japón <strong>Pokémon Rojo</strong> y <strong>Pokémon Verde</strong> para la Nintendo Game Boy. Más adelante se publicó una versión mejorada llamada Pokémon Azul. Estos tres juegos presentaron por primera vez a los 151 Pokémon originales y a la región de Kanto.</p>
+                        <p>La mecánica central era revolucionaria: los jugadores exploraban un mundo abierto (para la época), capturaban criaturas salvajes usando Poké Balls, las entrenaban mediante combates por turnos y podían intercambiarlas con otros jugadores a través del cable link de la Game Boy. Esta última función fue clave para el éxito, ya que fomentaba la interacción social real entre amigos.</p>
+                        <p>El juego también incluía un sistema de tipos elementales (Agua, Fuego, Planta, Eléctrico, etc.) que generaba una profunda estrategia en los combates. Además, la posibilidad de completar la Pokédex se convirtió en uno de los mayores atractivos.</p>
+                        <p>En 1998, Nintendo lanzó en Occidente las versiones <strong>Pokémon Red</strong> y <strong>Pokémon Blue</strong>, que se convirtieron en un éxito masivo. Estos primeros juegos sentaron todas las bases de la franquicia: la captura, el entrenamiento, el intercambio, los gimnasios y la Liga Pokémon.</p>
+                    </div>
+                    <div class="images-group">
+                        <figure class="image-container">
+                            <img src="images/historia3.jpg" alt="Cartuchos Game Boy">
+                            <figcaption>Cartuchos de Pokémon Rojo y Verde + Game Boy</figcaption>
+                        </figure>
+                        <figure class="image-container">
+                            <img src="images/historia4.jpg" alt="Pantalla del juego">
+                            <figcaption>Pantalla clásica de los primeros juegos</figcaption>
+                        </figure>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 3. SERIE (2 imágenes) -->
+            <section id="serie">
+                <h2>3. La Serie de Anime</h2>
+                <div class="content">
+                    <div class="text">
+                        <p>El 1 de abril de 1997 se estrenó en Japón el anime de Pokémon. La historia sigue a Ash Ketchum (Satoshi), un niño de 10 años que comienza su viaje para convertirse en Maestro Pokémon, acompañado de su primer compañero: Pikachu.</p>
+                        <p>El anime fue un éxito inmediato. No solo popularizó los videojuegos, sino que convirtió a Pikachu en un ícono cultural mundial. La canción de apertura, los personajes secundarios como Misty y Brock, y el Equipo Rocket se volvieron extremadamente populares.</p>
+                        <p>A lo largo de más de 25 años, el anime ha atravesado múltiples sagas: Kanto, Johto, Hoenn, Sinnoh, Unova, Kalos, Alola, Galar y Paldea. También generó películas cinematográficas y especiales. Actualmente sigue emitiéndose y se adapta a nuevas generaciones de fans.</p>
+                    </div>
+                    <div class="images-group">
+                        <figure class="image-container">
+                            <img src="images/historia5.jpg" alt="Ash y Pikachu">
+                            <figcaption>Ash Ketchum y Pikachu</figcaption>
+                        </figure>
+                        <figure class="image-container">
+                            <img src="images/historia6.jpg" alt="Equipo Rocket">
+                            <figcaption>Jessie, James y Meowth – Equipo Rocket</figcaption>
+                        </figure>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 4. CARTAS (1 imagen) -->
+            <section id="cartas">
+                <h2>4. Las Cartas Pokémon (TCG) y su Historia</h2>
+                <div class="content">
+                    <div class="text">
+                        <p>El <strong>Pokémon Trading Card Game</strong> nació en Japón en octubre de 1996, solo ocho meses después de los primeros videojuegos. Fue desarrollado por Creatures Inc. y se convirtió rápidamente en un fenómeno de colección y juego estratégico.</p>
+                        <p>En 1999 llegó a Occidente y el éxito fue enorme. Las cartas se agotaban constantemente y se generó una fuerte cultura de intercambio. Con el tiempo se convirtió en un circuito competitivo profesional a través del programa Play! Pokémon, con torneos locales, regionales e internacionales.</p>
+                        <p>Hoy se lanzan varias expansiones cada año y el TCG es una de las partes más activas y rentables de toda la franquicia.</p>
+                    </div>
+                    <div class="images-group">
+                        <figure class="image-container">
+                            <img src="images/historia7.jpg" alt="Cartas Pokémon">
+                            <figcaption>Cartas y sobres del Pokémon TCG</figcaption>
+                        </figure>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 5. POKÉMON GO (1 imagen) -->
+            <section id="pokemon-go">
+                <h2>5. Pokémon GO</h2>
+                <div class="content">
+                    <div class="text">
+                        <p><strong>Pokémon GO</strong> se lanzó en julio de 2016 como una colaboración entre The Pokémon Company, Nintendo y Niantic. Utiliza el GPS y la realidad aumentada para que los jugadores capturen Pokémon en el mundo real.</p>
+                        <p>El impacto fue inmediato: millones de personas salieron a caminar buscando Pokémon. El juego impulsó la actividad física y revitalizó el interés por la franquicia. Incluye gimnasios, incursiones, intercambios, eventos comunitarios y mecánicas como las Megaevoluciones.</p>
+                        <p>Puedes descargarlo de forma gratuita:</p>
+                        <a href="https://www.pokemongo.com/" target="_blank" class="btn-go">Ir a la página oficial de Pokémon GO</a>
+                    </div>
+                    <div class="images-group">
+                        <figure class="image-container">
+                            <img src="images/historia8.jpg" alt="Pokémon GO">
+                            <figcaption>Pokémon GO en el mundo real</figcaption>
+                        </figure>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 6. COMUNIDAD (1 imagen) -->
+            <section id="comunidad">
+                <h2>6. La Comunidad Pokémon</h2>
+                <div class="content">
+                    <div class="text">
+                        <p>La comunidad de Pokémon es una de las más grandes y longevas del entretenimiento. Incluye jugadores de videojuegos, coleccionistas de cartas, jugadores de Pokémon GO, fans del anime y creadores de contenido.</p>
+                        <p>Se organiza en foros, Discord, redes sociales, ligas locales y eventos presenciales. Destaca por su espíritu de colaboración, el intercambio de conocimiento y la creatividad (fan arts, teorías, cosplay, etc.). Los Campeonatos Mundiales son el punto culminante de esta comunidad competitiva.</p>
+                    </div>
+                    <div class="images-group">
+                        <figure class="image-container">
+                            <img src="images/historia9.jpg" alt="Comunidad Pokémon">
+                            <figcaption>Fans y comunidad de entrenadores</figcaption>
+                        </figure>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 7. EVENTOS (1 imagen + lista) -->
+            <section id="eventos">
+                <h2>7. Próximos Eventos y Convenciones Pokémon</h2>
+                <div class="content">
+                    <div class="text">
+                        <p>El circuito oficial de Play! Pokémon organiza constantemente torneos regionales, especiales e internacionales. Estos eventos reúnen a miles de jugadores de videojuegos (VGC), cartas (TCG) y Pokémon GO.</p>
+                        <p>Aquí tienes algunos de los más importantes que se avecinan:</p>
+                    </div>
+                    <div class="images-group">
+                        <figure class="image-container">
+                            <img src="images/historia10.jpg" alt="Evento Pokémon">
+                            <figcaption>Campeonato / Convención Pokémon</figcaption>
+                        </figure>
+                    </div>
+                </div>
+
+                <div class="eventos-lista">
+                    <div class="evento">
+                        <h3>Nice Regional Championships</h3>
+                        <p>📍 Niza, Francia</p>
+                        <p>📅 17 – 18 de octubre 2026</p>
+                    </div>
+                    <div class="evento">
+                        <h3>Puebla Regional Championships</h3>
+                        <p>📍 Puebla, México</p>
+                        <p>📅 24 – 25 de octubre 2026</p>
+                    </div>
+                    <div class="evento">
+                        <h3>Gdańsk Regional Championships</h3>
+                        <p>📍 Gdańsk, Polonia</p>
+                        <p>📅 31 oct – 1 nov 2026</p>
+                    </div>
+                    <div class="evento">
+                        <h3>Buenos Aires Special Event</h3>
+                        <p>📍 Buenos Aires, Argentina</p>
+                        <p>📅 14 – 15 de noviembre 2026</p>
+                    </div>
+                    <div class="evento">
+                        <h3>LAIC São Paulo</h3>
+                        <p>📍 São Paulo, Brasil</p>
+                        <p>📅 20 – 22 de noviembre 2026</p>
+                    </div>
+                    <div class="evento">
+                        <h3>Stuttgart Regional</h3>
+                        <p>📍 Stuttgart, Alemania</p>
+                        <p>📅 28 – 29 de noviembre 2026</p>
+                    </div>
+                    <div class="evento">
+                        <h3>Las Vegas Regional</h3>
+                        <p>📍 Las Vegas, EE.UU.</p>
+                        <p>📅 4 – 6 de diciembre 2026</p>
+                    </div>
+                    <div class="evento">
+                        <h3>EUIC Londres</h3>
+                        <p>📍 Londres, Reino Unido</p>
+                        <p>📅 19 – 21 de febrero 2027</p>
+                    </div>
+                    <div class="evento">
+                        <h3>World Championships 2027</h3>
+                        <p>📍 Singapur</p>
+                        <p>📅 13 – 15 de agosto 2027</p>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <footer>
+            <p>Presentación creada para GitHub Pages • Historia completa de Pokémon</p>
+        </footer>
+    </div>
+
+</body>
+</html>
